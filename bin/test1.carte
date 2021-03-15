@@ -1,0 +1,67 @@
+{
+	"Boisson":[
+		{
+			"name":"Eau",
+			"prix": 0
+		},
+		{
+			"name":"Vin",
+			"prix": 15
+		}
+	],
+	
+	"Plat":[
+		{
+			"name":"Pizza Reine",
+			"prix" : 9
+		},
+		{
+			"name":"Pizza Margarita",
+			"prix" : 8
+		},
+		{
+			"name": "Spaghetti à la bolognaise",
+			"prix" : 25
+		}
+		
+	],
+	"Dessert":[
+		{
+			"name":"Tiramisu",
+			"prix" : 4,
+		},
+		{
+			"name":"Glace",
+			"prix" : 8
+		}
+	
+	],
+	"Entree":[
+		{
+			"name":"Salade Verte",
+			"prix" : 4
+		},
+		{
+			"name":"Salade composee",
+			"prix" : 6
+		}
+	],
+	"Menu":[
+		{
+			
+			"plat":"Pizza Reine",
+			"boisson":"Eau",
+			"dessert":"Tiramisu",
+			"entree":"Salade Verte",
+			"prix" : 15
+		},
+		{
+			
+			"plat":"Pizza Margarita",
+			"boisson":"Vin",
+			"dessert":"Glace",
+			"entree":"Salade composee",
+			"prix" : 15
+		}
+	]
+}

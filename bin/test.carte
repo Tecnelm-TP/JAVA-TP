@@ -1,0 +1,22 @@
+{
+	"Boisson":[
+		{
+			"name": "Eau",
+			"prix": 0,
+			"kCal":-1,
+			"glucide":-1,
+			"volume":-1
+		}
+	],
+	
+	"Plat":[
+		
+	],
+	"Dessert":[
+
+	
+	],
+	"Entree":[
+		
+	]
+}
