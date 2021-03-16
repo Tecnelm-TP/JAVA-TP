@@ -54,7 +54,7 @@ public class Parser {
 
 	private ArrayList<Boisson> getBoisson(String str) {
 		ArrayList<Boisson> boisson = new ArrayList<>();
-		Categorie strcp = getCategorie("Boisson", file);
+		Categorie strcp = getTable("Boisson", file);
 		ArrayList<String> temp = splitItem(strcp.getContent());
 		for (String s : temp) {
 			int volume = -1;
@@ -62,11 +62,22 @@ public class Parser {
 			int glucide = -1;
 
 			try {
-				volume = Integer.parseInt(getByID("volume", s.replace(" ", "")));
+
 				kCal = Integer.parseInt(getByID("kCal", s.replace(" ", "")));
+			} catch (Exception e) {
+				System.out.println("no cal, glucide specified");
+			}
+			try {
+
 				glucide = Integer.parseInt(getByID("glucide", s.replace(" ", "")));
 			} catch (Exception e) {
-				System.out.println("no cal, glucide, volume specified");
+				System.out.println("no cal, glucide specified");
+			}
+			try {
+
+				volume = Integer.parseInt(getByID("volume", s.replace(" ", "")));
+			} catch (Exception e) {
+				System.out.println("no cal, glucide specified");
 			}
 
 			int prix = Integer.parseInt(getByID("prix", s.replace(" ", "")));
@@ -80,7 +91,7 @@ public class Parser {
 
 	private ArrayList<Entrée> getEntree(String str) {
 		ArrayList<Entrée> entree = new ArrayList<>();
-		Categorie strcp = getCategorie("Entree", file);
+		Categorie strcp = getTable("Entree", file);
 		ArrayList<String> temp = splitItem(strcp.getContent());
 		for (String s : temp) {
 
@@ -89,6 +100,11 @@ public class Parser {
 			try {
 
 				kCal = Integer.parseInt(getByID("kCal", s.replace(" ", "")));
+			} catch (Exception e) {
+				System.out.println("no cal, glucide specified");
+			}
+			try {
+
 				glucide = Integer.parseInt(getByID("glucide", s.replace(" ", "")));
 			} catch (Exception e) {
 				System.out.println("no cal, glucide specified");
@@ -104,7 +120,7 @@ public class Parser {
 
 	private ArrayList<PlatPrincipal> getPlat(String str) {
 		ArrayList<PlatPrincipal> plat = new ArrayList<>();
-		Categorie strcp = getCategorie("Plat", file);
+		Categorie strcp = getTable("Plat", file);
 		ArrayList<String> temp = splitItem(strcp.getContent());
 		for (String s : temp) {
 			int kCal = -1;
@@ -126,7 +142,7 @@ public class Parser {
 
 	private ArrayList<Dessert> getDessert(String str) {
 		ArrayList<Dessert> dessert = new ArrayList<>();
-		Categorie strcp = getCategorie("Dessert", file);
+		Categorie strcp = getTable("Dessert", file);
 		ArrayList<String> temp = splitItem(strcp.getContent());
 		for (String s : temp) {
 			int kCal = -1;
@@ -134,6 +150,11 @@ public class Parser {
 			try {
 
 				kCal = Integer.parseInt(getByID("kCal", s.replace(" ", "")));
+			} catch (Exception e) {
+				System.out.println("no cal, glucide specified");
+			}
+			try {
+
 				glucide = Integer.parseInt(getByID("glucide", s.replace(" ", "")));
 			} catch (Exception e) {
 				System.out.println("no cal, glucide specified");
@@ -149,7 +170,7 @@ public class Parser {
 	private ArrayList<Menu> getMenu(String str, ArrayList<Consommable> conso) {
 		ArrayList<Menu> menu = new ArrayList<>();
 
-		Categorie strcp = getCategorie("Menu", file);
+		Categorie strcp = getTable("Menu", file);
 		ArrayList<String> temp = splitItem(strcp.getContent());
 
 		for (String s : temp) {
@@ -185,15 +206,14 @@ public class Parser {
 		return menu;
 	}
 
-	private Categorie getCategorie(String name, String str) {
+	private Categorie getTable(String name, String str) {
 
 		Categorie cat = null;
 		String categorie;
-		char c;
 		index = 0;
 
 		for (index = 0; index < str.length() && cat == null; index++) {
-			switch (c = str.charAt(index)) {
+			switch ( str.charAt(index)) {
 			case '\"':
 
 				categorie = getName(str);
@@ -238,13 +258,13 @@ public class Parser {
 		}
 
 	}
-	private void goNextCat(String str)
-	{
+
+	private void goNextCat(String str) {
 		ArrayList<Character> braquet = new ArrayList<>();
 		goNextChar("[", str);
 		Boolean stop = false;
 		Character b2 = '[';
-		do{
+		do {
 			switch (str.charAt(index)) {
 			case ']':
 				braquet.remove(b2);
@@ -255,11 +275,11 @@ public class Parser {
 			default:
 				break;
 			}
-			stop = braquet.size() == 0 && (str.charAt(index+1) == '\"' );
-			if(!stop)
+			stop = braquet.size() == 0 && (str.charAt(index + 1) == '\"');
+			if (!stop)
 				index++;
 
-		}while (!stop && index + 1 < str.length());
+		} while (!stop && index + 1 < str.length());
 
 	}
 
@@ -330,9 +350,8 @@ public class Parser {
 	private String getByID(String key, String str) {
 		String ret = null;
 		StringBuilder sb = new StringBuilder();
-		char c;
 		for (index = 0; index < str.length() && ret == null; index++) {
-			switch (c = str.charAt(index)) {
+			switch (str.charAt(index)) {
 			case '\"':
 				if (getName(str).equals(key)) {
 					goNextChar(":", str);

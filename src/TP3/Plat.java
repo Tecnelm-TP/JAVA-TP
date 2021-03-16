@@ -12,11 +12,12 @@ public class Plat implements Consommable,Nutrition{
 	public Plat(String nom, int prix) {
 		this.nom = nom;
 		this.prix = prix;
+		this.kCal = -1;
+		this.glucide = -1;
 	}
 
 
 	public Plat(String nom, int prix, int kCal, int glucide) {
-		super();
 		this.nom = nom;
 		this.prix = prix;
 		this.kCal = kCal;

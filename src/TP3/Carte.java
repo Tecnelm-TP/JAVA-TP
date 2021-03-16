@@ -1,13 +1,11 @@
 package TP3;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
-import  Parser.Parser;
+import Parser.Parser;
 
 public class Carte {
 	private ArrayList<Consommable> entrées;
@@ -16,35 +14,32 @@ public class Carte {
 	private ArrayList<Consommable> boissons;
 
 	private ArrayList<Menu> menus;
-	
-	public Carte createCarte(String fileName )
-	{
-		
-		
+
+	public Carte createCarte(String fileName) {
+
 		try {
 			String path = getClass().getResource(fileName).getPath();
-			BufferedReader reader= new BufferedReader(new FileReader(path));
-			String line ;
-			StringBuilder sb = new StringBuilder();
-			while((line = reader.readLine())!=null)
-			{
+			BufferedReader reader = new BufferedReader(new FileReader(path)); /// ouverture du fichier
+			String line;
+			StringBuilder sb = new StringBuilder(); /// récupération du contenu du fichier
+			while ((line = reader.readLine()) != null) {
 				sb.append(line);
 			}
-			 new Parser(sb.toString(),this).getcarte();
-			
+			reader.close();
+			new Parser(sb.toString(), this).getcarte(); /// création de la carte a partir du fichier
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return this;
 
 	}
 
-
 	public Carte() {
 		entrées = new ArrayList<Consommable>();
-		platsPrincipaux = new ArrayList<Consommable>();
+		platsPrincipaux = new ArrayList<Consommable>();/// création des listes d'element
 		desserts = new ArrayList<Consommable>();
 		boissons = new ArrayList<Consommable>();
 		menus = new ArrayList<Menu>();
@@ -95,35 +90,43 @@ public class Carte {
 	// Vérifie que les plats et boissons du menu sont bien dans la carte
 	private boolean verifMenu(Menu m) {
 		boolean result = true;
-		for (int i = 0; i < m.getItems().size() && result; i++) {
-			result = this.getBoissons().contains(m.getItems().get(i))
-					|| this.getDesserts().contains(m.getItems().get(i));
-			result = result || this.getEntrées().contains(m.getItems().get(i))
-					|| this.getPlatsPrincipaux().contains(m.getItems().get(i));
-		}
+		if (m != null) {
+			for (int i = 0; i < m.getItems().size() && result; i++) {
+
+				result = this.getBoissons().contains(m.getItems().get(i))
+						|| this.getDesserts().contains(m.getItems().get(i));
+				result = result || this.getEntrées().contains(m.getItems().get(i))
+						|| this.getPlatsPrincipaux().contains(m.getItems().get(i));
+			}
+		} else
+			result = false;
 		return result;
 	}
 
 	// Vérifie qu'il n'y a pas d'homonymes dans la carte
 	private boolean verifCarte(Consommable c) {
 		boolean result = false;
+		if (c != null) {
 
-		for (int i = 0; i < this.getBoissons().size() && !result; i++) {
-			result = c.getNom().equals(this.getBoissons().get(i).getNom());
-		}
+			for (int i = 0; i < this.getBoissons().size() && !result; i++) {
+				result = c.getNom().equalsIgnoreCase(this.getBoissons().get(i).getNom());
+			}
 
-		for (int i = 0; i < this.getDesserts().size() && !result; i++) {
-			result = c.getNom().equals(this.getDesserts().get(i).getNom());
+			for (int i = 0; i < this.getDesserts().size() && !result; i++) {
+				result = c.getNom().equalsIgnoreCase(this.getDesserts().get(i).getNom());
 
-		}
+			}
 
-		for (int i = 0; i < this.getEntrées().size() && !result; i++) {
-			result = c.getNom().equals(this.getEntrées().get(i).getNom());
+			for (int i = 0; i < this.getEntrées().size() && !result; i++) {
+				result = c.getNom().equalsIgnoreCase(this.getEntrées().get(i).getNom());
 
-		}
-		for (int i = 0; i < this.getPlatsPrincipaux().size() && !result; i++) {
-			result = c.getNom().equals(this.getPlatsPrincipaux().get(i).getNom());
-		}
+			}
+			for (int i = 0; i < this.getPlatsPrincipaux().size() && !result; i++) {
+				result = c.getNom().equalsIgnoreCase(this.getPlatsPrincipaux().get(i).getNom());
+			}
+		} else
+			result = true;
+
 		return !result;
 
 	}
@@ -140,9 +143,12 @@ public class Carte {
 		int boisson = 0;
 		int entree = 0;
 
+		if (c == null)
+			return 0;
 		ArrayList<Consommable> consoTemp = new ArrayList<Consommable>(c.getItemsCommandés());/// cree une copie des
 																								/// plats pour pouvoir
-																								/// facilement effectuer
+																								/// /// facilement
+																								/// effectuer
 																								/// des modifications
 																								/// dessus
 		ArrayList<Consommable> tempmenu = new ArrayList<>();
@@ -197,7 +203,7 @@ public class Carte {
 			boisson = 0;
 			dessert = 0;
 		}
-		for (Consommable conso : consoTemp) {
+		for (Consommable conso : consoTemp) { /// ajout de tous les derniers plats hors menu
 			prix += conso.getPrix();
 		}
 
@@ -216,13 +222,35 @@ public class Carte {
 		int nbkcal = 0;
 		for (Menu m : this.menus) {
 			for (Consommable c : m.getItems()) {
-				if (c instanceof Nutrition)
-					nbkcal += ((Nutrition) c).getKcal();
+				if (c instanceof Nutrition && ((Nutrition) c).getKcal() != -1) /// si la valeur est -1 alors la valeur
+																				/// n'est pas renseigné
+
+					nbkcal += ((Nutrition) c).getKcal(); /// verifie que la classe contienne bien les information
+															/// calorique
 			}
 			if (nbkcal <= Kc + epsilon && nbkcal >= Kc - epsilon)
 				System.out.println(m);
 			nbkcal = 0;
 		}
+	}
+
+	public ArrayList<Consommable> getAllelem() {
+		ArrayList<Consommable> elem = new ArrayList<>();
+		elem.addAll(platsPrincipaux);
+		elem.addAll(desserts);
+		elem.addAll(boissons);
+		elem.addAll(entrées);
+		return elem;
+
+	}
+
+	public Consommable getElemByName(String name) {
+		Consommable ret = null;
+		for (Consommable c : getAllelem()) {
+			if (c.getNom().equalsIgnoreCase(name))
+				ret = c;
+		}
+		return ret;
 	}
 
 }

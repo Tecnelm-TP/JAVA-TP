@@ -13,6 +13,8 @@ public class Menu {
 		items.add(p);
 		items.add(d);
 		items.add(b);
+		if(!verifPrixMenu())
+			System.exit(1);
 
 	}
 
