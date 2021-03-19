@@ -6,7 +6,7 @@ import TP3.Boisson;
 import TP3.Carte;
 import TP3.Consommable;
 import TP3.Dessert;
-import TP3.Entrée;
+import TP3.Entree;
 import TP3.Menu;
 import TP3.PlatPrincipal;
 
@@ -40,8 +40,8 @@ public class Parser {
 			carte.addDessert(b);
 			consommable.add(b);
 		}
-		for (Entrée b : getEntree(file)) {
-			carte.addEntrée(b);
+		for (Entree b : getEntree(file)) {
+			carte.addEntree(b);
 			consommable.add(b);
 		}
 
@@ -89,8 +89,8 @@ public class Parser {
 		return boisson;
 	}
 
-	private ArrayList<Entrée> getEntree(String str) {
-		ArrayList<Entrée> entree = new ArrayList<>();
+	private ArrayList<Entree> getEntree(String str) {
+		ArrayList<Entree> entree = new ArrayList<>();
 		Categorie strcp = getTable("Entree", file);
 		ArrayList<String> temp = splitItem(strcp.getContent());
 		for (String s : temp) {
@@ -113,7 +113,7 @@ public class Parser {
 			int prix = Integer.parseInt(getByID("prix", s.replace(" ", "")));
 			String name = getByID("name", s).replace("\"", "");
 
-			entree.add(new Entrée(name, prix, kCal, glucide));
+			entree.add(new Entree(name, prix, kCal, glucide));
 		}
 		return entree;
 	}
@@ -182,7 +182,7 @@ public class Parser {
 
 			PlatPrincipal p = null;
 			Dessert d = null;
-			Entrée e = null;
+			Entree e = null;
 			Boisson b = null;
 
 			for (Consommable c : conso) {
@@ -190,7 +190,7 @@ public class Parser {
 					p = (PlatPrincipal) c;
 				}
 				if (c.getNom().equals(entree)) {
-					e = (Entrée) c;
+					e = (Entree) c;
 				}
 				if (c.getNom().equals(dessert)) {
 					d = (Dessert) c;

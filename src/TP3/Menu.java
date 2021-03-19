@@ -6,7 +6,7 @@ public class Menu {
 	ArrayList<Consommable> items;
 	int prix; // en cents
 
-	public Menu(int prix, Entrée e, PlatPrincipal p, Dessert d, Boisson b) {
+	public Menu(int prix, Entree e, PlatPrincipal p, Dessert d, Boisson b) {
 		items = new ArrayList<>();
 		this.prix = prix; /// ajout de chaque element du menu dans la liste des items et sauvegarde du prix 
 		items.add(e);

@@ -4,18 +4,18 @@ package TP3;
 import java.util.ArrayList;
 
 public class Commande {
-	private ArrayList<Consommable> itemsCommandés;
+	private ArrayList<Consommable> itemsCommandes;
 	
 	public Commande() {
-		this.itemsCommandés = new ArrayList<Consommable>();
+		this.itemsCommandes = new ArrayList<Consommable>();
 	}
 	
 	public void addItem(Consommable c){
-		this.itemsCommandés.add(c);
+		this.itemsCommandes.add(c);
 	}
 	
-	public ArrayList<Consommable> getItemsCommandés(){
-		return this.itemsCommandés;
+	public ArrayList<Consommable> getItemsCommandes(){
+		return this.itemsCommandes;
 	}
 
 }

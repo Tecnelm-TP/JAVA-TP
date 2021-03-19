@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import Parser.Parser;
 
 public class Carte {
-	private ArrayList<Consommable> entrées;
+	private ArrayList<Consommable> entrees;
 	private ArrayList<Consommable> platsPrincipaux;
 	private ArrayList<Consommable> desserts;
 	private ArrayList<Consommable> boissons;
@@ -21,12 +21,12 @@ public class Carte {
 			String path = getClass().getResource(fileName).getPath();
 			BufferedReader reader = new BufferedReader(new FileReader(path)); /// ouverture du fichier
 			String line;
-			StringBuilder sb = new StringBuilder(); /// récupération du contenu du fichier
+			StringBuilder sb = new StringBuilder(); /// recuperation du contenu du fichier
 			while ((line = reader.readLine()) != null) {
 				sb.append(line);
 			}
 			reader.close();
-			new Parser(sb.toString(), this).getcarte(); /// création de la carte a partir du fichier
+			new Parser(sb.toString(), this).getcarte(); /// creation de la carte a partir du fichier
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -38,16 +38,16 @@ public class Carte {
 	}
 
 	public Carte() {
-		entrées = new ArrayList<Consommable>();
-		platsPrincipaux = new ArrayList<Consommable>();/// création des listes d'element
+		entrees = new ArrayList<Consommable>();
+		platsPrincipaux = new ArrayList<Consommable>();/// creation des listes d'element
 		desserts = new ArrayList<Consommable>();
 		boissons = new ArrayList<Consommable>();
 		menus = new ArrayList<Menu>();
 	}
 
-	public void addEntrée(Entrée e) {
+	public void addEntree(Entree e) {
 		if (verifCarte(e))
-			this.entrées.add(e);
+			this.entrees.add(e);
 	}
 
 	public void addPlatPrincipal(PlatPrincipal p) {
@@ -71,8 +71,8 @@ public class Carte {
 		}
 	}
 
-	public ArrayList<Consommable> getEntrées() {
-		return this.entrées;
+	public ArrayList<Consommable> getEntrees() {
+		return this.entrees;
 	}
 
 	public ArrayList<Consommable> getPlatsPrincipaux() {
@@ -87,7 +87,7 @@ public class Carte {
 		return this.boissons;
 	}
 
-	// Vérifie que les plats et boissons du menu sont bien dans la carte
+	// Verifie que les plats et boissons du menu sont bien dans la carte
 	private boolean verifMenu(Menu m) {
 		boolean result = true;
 		if (m != null) {
@@ -95,7 +95,7 @@ public class Carte {
 
 				result = this.getBoissons().contains(m.getItems().get(i))
 						|| this.getDesserts().contains(m.getItems().get(i));
-				result = result || this.getEntrées().contains(m.getItems().get(i))
+				result = result || this.getEntrees().contains(m.getItems().get(i))
 						|| this.getPlatsPrincipaux().contains(m.getItems().get(i));
 			}
 		} else
@@ -103,7 +103,7 @@ public class Carte {
 		return result;
 	}
 
-	// Vérifie qu'il n'y a pas d'homonymes dans la carte
+	// Verifie qu'il n'y a pas d'homonymes dans la carte
 	private boolean verifCarte(Consommable c) {
 		boolean result = false;
 		if (c != null) {
@@ -117,8 +117,8 @@ public class Carte {
 
 			}
 
-			for (int i = 0; i < this.getEntrées().size() && !result; i++) {
-				result = c.getNom().equalsIgnoreCase(this.getEntrées().get(i).getNom());
+			for (int i = 0; i < this.getEntrees().size() && !result; i++) {
+				result = c.getNom().equalsIgnoreCase(this.getEntrees().get(i).getNom());
 
 			}
 			for (int i = 0; i < this.getPlatsPrincipaux().size() && !result; i++) {
@@ -145,7 +145,7 @@ public class Carte {
 
 		if (c == null)
 			return 0;
-		ArrayList<Consommable> consoTemp = new ArrayList<Consommable>(c.getItemsCommandés());/// cree une copie des
+		ArrayList<Consommable> consoTemp = new ArrayList<Consommable>(c.getItemsCommandes());/// cree une copie des
 																								/// plats pour pouvoir
 																								/// /// facilement
 																								/// effectuer
@@ -157,7 +157,7 @@ public class Carte {
 			for (Consommable conso : consoTemp) {
 				if (menu.getItems().contains(conso)) { /// si un menu contient le plat
 					tempmenu.add(conso);/// ajout a une liste temporaire
-					if (conso instanceof Entrée) {/// compte le nombre de plat dessert etc ...
+					if (conso instanceof Entree) {/// compte le nombre de plat dessert etc ...
 						entree++;
 					} else if (conso instanceof PlatPrincipal) {
 						plat++;
@@ -176,7 +176,7 @@ public class Carte {
 				boisson--;
 				dessert--;
 				int index = 0;
-				while (!(tempmenu.get(index) instanceof Entrée))
+				while (!(tempmenu.get(index) instanceof Entree))
 					;
 				consoTemp.remove(tempmenu.get(index));
 				tempmenu.remove(index);
@@ -211,7 +211,7 @@ public class Carte {
 	}
 
 	public void afficherMenu() {
-		System.out.println("Liste des entrées:" + entrées);
+		System.out.println("Liste des entrees:" + entrees);
 		System.out.println("Liste des plats principaux:" + platsPrincipaux);
 		System.out.println("Liste des desserts:" + desserts);
 		System.out.println("Liste des boissons:" + boissons);
@@ -223,7 +223,7 @@ public class Carte {
 		for (Menu m : this.menus) {
 			for (Consommable c : m.getItems()) {
 				if (c instanceof Nutrition && ((Nutrition) c).getKcal() != -1) /// si la valeur est -1 alors la valeur
-																				/// n'est pas renseigné
+																				/// n'est pas renseigne
 
 					nbkcal += ((Nutrition) c).getKcal(); /// verifie que la classe contienne bien les information
 															/// calorique
@@ -239,7 +239,7 @@ public class Carte {
 		elem.addAll(platsPrincipaux);
 		elem.addAll(desserts);
 		elem.addAll(boissons);
-		elem.addAll(entrées);
+		elem.addAll(entrees);
 		return elem;
 
 	}

@@ -8,8 +8,8 @@ public class TestRestaurant {
 		Carte carte = new Carte().createCarte("/test1.carte");
 		ArrayList<Consommable> allElem = carte.getAllelem();
 		
-		Entrée e = new Entrée("Salade verte", 4,100,0);
-		Entrée e1 = new Entrée("Salade composée", 6,100,0);
+		Entree e = new Entree("Salade verte", 4,100,0);
+		Entree e1 = new Entree("Salade composee", 6,100,0);
 		
 		PlatPrincipal p1 = new PlatPrincipal("Pizza Reine", 9,400,10);
 		PlatPrincipal p2 = new PlatPrincipal("Pizza Margarita", 8,400,10);
@@ -25,8 +25,8 @@ public class TestRestaurant {
 		
 		carte1.addDessert(d);
 		
-		carte1.addEntrée(e);
-		carte1.addEntrée(e);
+		carte1.addEntree(e);
+		carte1.addEntree(e);
 		
 		carte1.addPlatPrincipal(p1);
 		carte1.addPlatPrincipal(p2);
