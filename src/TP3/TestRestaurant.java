@@ -44,8 +44,8 @@ public class TestRestaurant {
 		c.addItem(d);
 		c.addItem(e);
 		
-		int prixCommande= carte.calculerPrixCommande(c);
-		carte.proposerMenu(400, 400);
+		int prixCommande= carte1.calculerPrixCommande(c);
+		carte1.proposerMenu(400, 400);
 		
 		
 

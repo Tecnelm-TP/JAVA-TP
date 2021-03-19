@@ -175,26 +175,27 @@ public class Carte {
 				plat--;
 				boisson--;
 				dessert--;
+				Consommable temp;
 				int index = 0;
-				while (!(tempmenu.get(index) instanceof Entree))
+				while (!((temp = tempmenu.get(index++)) instanceof Entree))
 					;
-				consoTemp.remove(tempmenu.get(index));
-				tempmenu.remove(index);
+				consoTemp.remove(temp);
+				tempmenu.remove(index-1);
 				index = 0;
-				while (!(tempmenu.get(index) instanceof Dessert))
+				while (!((temp = tempmenu.get(index++)) instanceof Dessert))
 					;
-				consoTemp.remove(tempmenu.get(index));
-				tempmenu.remove(index);
+				consoTemp.remove(temp);
+				tempmenu.remove(index-1);
 				index = 0;
-				while (!(tempmenu.get(index) instanceof PlatPrincipal))
+				while (!((temp = tempmenu.get(index++)) instanceof PlatPrincipal))
 					;
-				consoTemp.remove(tempmenu.get(index));
-				tempmenu.remove(index);
+				consoTemp.remove(temp);
+				tempmenu.remove(index-1);
 				index = 0;
-				while (!(tempmenu.get(index) instanceof Boisson))
+				while (!((temp = tempmenu.get(index++)) instanceof Boisson))
 					;
-				consoTemp.remove(tempmenu.get(index));
-				tempmenu.remove(index);
+				consoTemp.remove(temp);
+				tempmenu.remove(index-1);
 				prix += 15;
 			}
 			tempmenu.clear();
