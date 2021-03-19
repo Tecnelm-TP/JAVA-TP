@@ -52,7 +52,8 @@ public class Creneau {
 	// Verifie que le debut et la fin du creneau sont dans la même journee, entre 8h
 	// et 19h
 	private boolean verifDuree() {
- 		return ((this.heure*60 + this.duree +this.minute <= 19*60 && this.heure >= 8) && this.duree <=210 && this.duree > 0);
+		return ((this.heure * 60 + this.duree + this.minute <= 19 * 60 && this.heure >= 8) && this.duree <= 210
+				&& this.duree > 0);
 	}
 
 	public Salle getSalle() {
