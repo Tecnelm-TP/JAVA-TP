@@ -4,44 +4,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Planning {
-	private List<Créneau> edt;
+	private List<Creneau> edt;
 
 	public Planning() {
-		edt = new ArrayList<Créneau>();
+		edt = new ArrayList<Creneau>();
 	}
 
 	public String toString() {
 		String res = new String();
-		for (Créneau c : edt) {
+		for (Creneau c : edt) {
 			res = res + c + "\n";
 		}
 		return res;
 	}
 
-	public boolean vérifCréneau(Créneau c) {
+	public boolean verifCreneau(Creneau c) {
 		boolean ok = true;
 		int i = 0;
 		while (ok && i < edt.size()) {
-			Créneau cour = edt.get(i++);
+			Creneau cour = edt.get(i++);
 			ok = !c.intersection(cour);
 		}
 		return ok;
 	}
 
-	public void addCréneau(Créneau c) {
-		if (this.vérifCréneau(c))
+	public void addCreneau(Creneau c) {
+		if (this.verifCreneau(c))
 			edt.add(c);
 		else
-			System.out.println("Créneau " + c + " non inséré");
+			System.out.println("Creneau " + c + " non insere");
 	}
 
-	public List<Créneau> planningGroupe(Groupe groupe) {
+	public List<Creneau> planningGroupe(Groupe groupe) {
 
-		ArrayList<Créneau> list = new ArrayList<>();
+		ArrayList<Creneau> list = new ArrayList<>();
 		
-		for(Créneau e : edt)
+		for(Creneau e : edt)
 		{
-			if(e.getActivité().getGroupes().contains(groupe))
+			if(e.getActivite().getGroupes().contains(groupe))
 				list.add(e);
 		}
 		return list;
@@ -50,9 +50,9 @@ public class Planning {
 	public float totalHeuresGroupe(Groupe groupe) {
 		
 		int total = 0;
-		for(Créneau e : this.planningGroupe(groupe))
+		for(Creneau e : this.planningGroupe(groupe))
 		{
-			total+= e.getDurée();
+			total+= e.getDuree();
 		}
 		return total/60 ;
 
@@ -83,6 +83,8 @@ public class Planning {
 		cs421_422cm.addSalle(a042);
 		cs421_422cm.addSalle(d030);
 		cs410cm.addSalle(a048);
+		
+
 
 		Groupe a3tp1 = new Groupe("3ATP1", 16);
 		Groupe a3tp2 = new Groupe("3ATP2", 16);
@@ -102,11 +104,11 @@ public class Planning {
 		
 		/*cs310cm.addGroupe(a3promo); 
 		cs330tp1.addGroupe(a3tp1);
-		Créneau c1 = null, c2 = null;
-		c1 = new Créneau(2014, 1, 17, 13, 15, 105, a042, cs310cm);
-		c2 = new Créneau(2014, 1, 17, 13, 15, 210, b141, cs330tp1);
-		p.addCréneau(c1);
-		p.addCréneau(c2);*/
+		Creneau c1 = null, c2 = null;
+		c1 = new Creneau(2014, 1, 17, 13, 15, 105, a042, cs310cm);
+		c2 = new Creneau(2014, 1, 17, 13, 15, 210, b141, cs330tp1);
+		p.addCreneau(c1);
+		p.addCreneau(c2);*/
 
 
 		cs310cm.addGroupe(a3tp1);
@@ -115,30 +117,30 @@ public class Planning {
 		cs310cm.addGroupe(a3tp4);
 		cs310cm.addGroupe(a3tp5);
 		
-		cs310cm.addGroupe(a3promo);
-
+		
+		
 		cs330tp1.addGroupe(a3tp1);
 		cs410cm.addGroupe(a4ir);
 		cs421_422cm.addGroupe(a4ir);
 		cs421_422cm.addGroupe(a4eis);
 
-		Créneau c1 = null, c2 = null, c3 = null, c4 = null, c5 = null;
+		Creneau c1 = null, c2 = null, c3 = null, c4 = null, c5 = null;
 		
 	
 
-		c1 = new Créneau(2014, 1, 17, 13, 15, 105, a042, cs310cm);
-		c2 = new Créneau(2014, 1, 17, 8, 00, 210, b141, cs330tp1);
-		c3 = new Créneau(2014, 1, 17, 15, 15, 105, d030, cs410cm);
-		c4 = new Créneau(2014, 1, 17, 10, 00, 105, a042, cs421_422cm);
-		c5 = new Créneau(2014, 1, 17, 17, 15, 105, a042, cs310cm);
+		c1 = new Creneau(2014, 1, 17, 13, 15, 105, a042, cs310cm);
+		c2 = new Creneau(2014, 1, 17, 8, 00, 210, b141, cs330tp1);
+		c3 = new Creneau(2014, 1, 17, 15, 15, 105, d030, cs410cm);
+		c4 = new Creneau(2014, 1, 17, 10, 00, 105, a042, cs421_422cm);
+		c5 = new Creneau(2014, 1, 17, 17, 15, 105, a042, cs310cm);
 
 		//System.exit(1);
 
-		p.addCréneau(c1);
-		p.addCréneau(c2);
-		p.addCréneau(c3);
-		p.addCréneau(c4);
-		p.addCréneau(c5);
+		p.addCreneau(c1);
+		p.addCreneau(c2);
+		p.addCreneau(c3);
+		p.addCreneau(c4);
+		p.addCreneau(c5);
 
 		System.out.println(p);
 

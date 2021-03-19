@@ -12,8 +12,8 @@ public class SalleTP extends Salle{
 		return type;
 	}
 
-	public SalleTP(int capacité, String nom, Discipline d){
-		super(capacité, nom);
+	public SalleTP(int capacite, String nom, Discipline d){
+		super(capacite, nom);
 		type = d;
 	}
 	

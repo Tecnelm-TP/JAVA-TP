@@ -1,6 +1,6 @@
 package TP2;
 
-public class TP extends Activité{
+public class TP extends Activite{
 	private Discipline type;
 	
 	public TP(String nom,Discipline type)

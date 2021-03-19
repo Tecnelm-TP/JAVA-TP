@@ -1,20 +1,20 @@
 package TP2;
 
 abstract public class Salle {
-	private int capacité;
+	private int capacite;
 	private String nom;
 	
 	public Salle(int c, String n){
-		capacité = c;
+		capacite = c;
 		nom = new String(n);
 	}
 	
 	public String toString(){
-		return nom + " (" + capacité + " places)";
+		return nom + " (" + capacite + " places)";
 	}
 	
-	public int getCapacité(){
-		return capacité;
+	public int getCapacite(){
+		return capacite;
 	}
 	
 	public String getNom(){

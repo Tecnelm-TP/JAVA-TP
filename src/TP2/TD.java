@@ -1,6 +1,6 @@
 package TP2;
 
-public class TD extends Activité{
+public class TD extends Activite{
 	public TD(String nom){
 		super(nom);
 	}

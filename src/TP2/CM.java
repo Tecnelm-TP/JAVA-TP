@@ -1,5 +1,5 @@
 package TP2;
-public class CM extends Activité{
+public class CM extends Activite{
 	public CM(String nom){
 		super(nom);
 	}

@@ -34,5 +34,17 @@ public class Promotion extends Groupe {
 	public void setSousgroupe(ArrayList<Groupe> sousgroupe) {
 		this.sousgroupe = sousgroupe;
 	}
+	
+	public void removeGroupes(Groupe[] groupes)
+	{
+		for(Groupe e : groupes)
+		{
+			this.removeGroupe(e);
+		}
+	}
+	public void removeGroupe(Groupe g)
+	{
+			this.sousgroupe.remove(g);
+	}
 
 }

@@ -2,15 +2,15 @@ package TP2;
 
 import java.util.ArrayList;
 
-public class Activité {
+public class Activite {
 	private String nom;
 	private ArrayList<Groupe> groupes;
-	private ArrayList<Salle> sallesAppropriées;
+	private ArrayList<Salle> sallesAppropriees;
 
-	public Activité(String nom) {
+	public Activite(String nom) {
 		this.nom = new String(nom);
 		groupes = new ArrayList<Groupe>();
-		sallesAppropriées = new ArrayList<Salle>();
+		sallesAppropriees = new ArrayList<Salle>();
 	}
 
 	public void addGroupe(Groupe groupe) {
@@ -27,11 +27,11 @@ public class Activité {
 	}
 
 	protected void addSalle(Salle s) {
-		sallesAppropriées.add(s);
+		sallesAppropriees.add(s);
 	}
 
 	public ArrayList<Salle> getSalles() {
-		return sallesAppropriées;
+		return sallesAppropriees;
 	}
 
 	public ArrayList<Groupe> getGroupes() {
@@ -39,6 +39,6 @@ public class Activité {
 	}
 
 	public String toString() {
-		return "Activité " + nom + " (" + groupes + ")";
+		return "Activite " + nom + " (" + groupes + ")";
 	}
 }

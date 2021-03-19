@@ -1,70 +1,70 @@
 package TP2;
 
-public class Créneau {
-	private int année;
-	private int mois; // 1 à 12
-	private int jour; // 1 à 31
-	private int heure; // 0 à 23
-	private int minute; // 0 à 59
-	private int durée; // en minutes, maximum 210
+public class Creneau {
+	private int annee;
+	private int mois; // 1 a 12
+	private int jour; // 1 a 31
+	private int heure; // 0 a 23
+	private int minute; // 0 a 59
+	private int duree; // en minutes, maximum 210
 
 	private Salle salle;
-	private Activité activité;
+	private Activite activite;
 
-	public Créneau(int a, int m, int j, int h, int min, int d, Salle s, Activité ac) {
+	public Creneau(int a, int m, int j, int h, int min, int d, Salle s, Activite ac) {
 
-		année = a;
+		annee = a;
 		mois = m;
 		jour = j;
 		heure = h;
 		minute = min;
-		durée = d;
+		duree = d;
 		salle = s;
-		activité = ac;
+		activite = ac;
 
-		if (!vérifCapacité()) {
+		if (!verifCapacite()) {
 			System.exit(1);
 		}
-		if (!vérifDurée()) {
+		if (!verifDuree()) {
 			System.exit(1);
 		}
-		if (!vérifSalle()) {
+		if (!verifSalle()) {
 			System.exit(1);
 		}
 	}
 
-	// Vérifie l'adéquation de la salle : la salle affectée doit être une des salles
-	// appropriées de l'activité
-	private boolean vérifSalle() {
-		return this.activité.getSalles().contains(this.salle);
+	// Verifie l'adequation de la salle : la salle affectee doit être une des salles
+	// appropriees de l'activite
+	private boolean verifSalle() {
+		return this.activite.getSalles().contains(this.salle);
 
 	}
 
-	// Vérifie que la taille de la salle convient à la promo
-	private boolean vérifCapacité() {
+	// Verifie que la taille de la salle convient a la promo
+	private boolean verifCapacite() {
 		int value = 0;
-		for (Groupe g : this.activité.getGroupes()) {
+		for (Groupe g : this.activite.getGroupes()) {
 			value += g.getEffectif();
 		}
-		return this.salle.getCapacité() >= value;
+		return this.salle.getCapacite() >= value;
 	}
 
-	// Vérifie que le début et la fin du créneau sont dans la même journée, entre 8h
+	// Verifie que le debut et la fin du creneau sont dans la même journee, entre 8h
 	// et 19h
-	private boolean vérifDurée() {
- 		return (this.heure + (this.durée / 60 + (this.minute + this.durée % 60) / 60) <= 19 && this.heure >= 8);
+	private boolean verifDuree() {
+ 		return ((this.heure*60 + this.duree +this.minute <= 19*60 && this.heure >= 8) && this.duree <=210 && this.duree > 0);
 	}
 
 	public Salle getSalle() {
 		return salle;
 	}
 
-	public Activité getActivité() {
-		return activité;
+	public Activite getActivite() {
+		return activite;
 	}
 
-	public int getDurée() {
-		return durée;
+	public int getDuree() {
+		return duree;
 	}
 
 	public int getStart() {
@@ -73,28 +73,25 @@ public class Créneau {
 
 	@Override
 	public String toString() {
-		return jour + "/" + mois + "/" + année + " " + heure + ":" + minute + " (" + durée + ") : " + activité + " "
+		return jour + "/" + mois + "/" + annee + " " + heure + ":" + minute + " (" + duree + ") : " + activite + " "
 				+ salle;
 	}
 
-	public boolean intersection(Créneau c) {
+	public boolean intersection(Creneau c) {
 		Boolean ret = false;
-		if (c.année == this.année && c.mois == this.mois && c.jour == c.jour) {
-			if (!(c.getStart() + c.getDurée() < this.getStart() || c.getStart() > this.getStart() + this.getDurée())) {
+		if (c.annee == this.annee && c.mois == this.mois && c.jour == c.jour) {
+			if (!(c.getStart() + c.getDuree() < this.getStart() || c.getStart() > this.getStart() + this.getDuree())) {
 
-				for (Groupe g : this.getActivité().getGroupes()) {
-					if (c.getActivité().getGroupes().contains(g))
+				for (Groupe g : this.getActivite().getGroupes()) {
+					if (c.getActivite().getGroupes().contains(g))
 						ret = true;
 				}
 
 				if (this.getSalle().getNom().equals(c.getSalle().getNom()))
 					ret = true;
 			}
-
 		}
-
 		return ret;
-
 	}
 
 }

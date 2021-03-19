@@ -2,8 +2,8 @@ package TP2;
 
 public class SalleCTD extends Salle{
 	
-	public SalleCTD(int capacité, String nom){
-		super(capacité, nom);
+	public SalleCTD(int capacite, String nom){
+		super(capacite, nom);
 	}
 	
 	public String toString(){
