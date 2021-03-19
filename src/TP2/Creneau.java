@@ -79,7 +79,7 @@ public class Creneau {
 
 	public boolean intersection(Creneau c) {
 		Boolean ret = false;
-		if (c.annee == this.annee && c.mois == this.mois && c.jour == c.jour) {
+		if (c.annee == this.annee && c.mois == this.mois && this.jour == c.jour) {
 			if (!(c.getStart() + c.getDuree() < this.getStart() || c.getStart() > this.getStart() + this.getDuree())) {
 
 				for (Groupe g : this.getActivite().getGroupes()) {

@@ -54,7 +54,7 @@ public class Planning {
 		{
 			total+= e.getDuree();
 		}
-		return total/60 ;
+		return ((float)total)/((float)60) ;
 
 	}
 
