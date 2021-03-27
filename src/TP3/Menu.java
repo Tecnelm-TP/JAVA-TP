@@ -8,12 +8,13 @@ public class Menu {
 
 	public Menu(int prix, Entree e, PlatPrincipal p, Dessert d, Boisson b) {
 		items = new ArrayList<>();
-		this.prix = prix; /// ajout de chaque element du menu dans la liste des items et sauvegarde du prix 
+		this.prix = prix; /// ajout de chaque element du menu dans la liste des items et sauvegarde du
+							/// prix
 		items.add(e);
 		items.add(p);
 		items.add(d);
 		items.add(b);
-		if(!verifPrixMenu())
+		if (!verifPrixMenu())
 			System.exit(1);
 
 	}
@@ -29,12 +30,11 @@ public class Menu {
 	@Override
 	public String toString() {
 		String message = "Menu compose de ";
-		for(Consommable c : this.items)
-		{
-			message +=c.getNom()+", "; /// on rajoute le nom de chaque element dans la chaine de charactere 
+		for (Consommable c : this.items) {
+			message += c.getNom() + ", "; /// on rajoute le nom de chaque element dans la chaine de charactere
 		}
 
-		message += "au prix de " + this.prix / 100 + " euros";
+		message += "au prix de " + this.prix + " euros";
 		return message;
 	}
 

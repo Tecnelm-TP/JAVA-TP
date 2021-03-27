@@ -136,12 +136,9 @@ public class Carte {
 	 * items SAUF si une partie de ces items constituent un menu; dans ce cas, le
 	 * tarif menu s'applique pour ces items.
 	 */
+
 	public int calculerPrixCommande(Commande c) {
 		int prix = 0;
-		int plat = 0;
-		int dessert = 0;
-		int boisson = 0;
-		int entree = 0;
 
 		if (c == null)
 			return 0;
@@ -151,63 +148,17 @@ public class Carte {
 																								/// effectuer
 																								/// des modifications
 																								/// dessus
-		ArrayList<Consommable> tempmenu = new ArrayList<>();
-
 		for (Menu menu : this.menus) { /// parcourt tous les menus
-			for (Consommable conso : consoTemp) {
-				if (menu.getItems().contains(conso)) { /// si un menu contient le plat
-					tempmenu.add(conso);/// ajout a une liste temporaire
-					if (conso instanceof Entree) {/// compte le nombre de plat dessert etc ...
-						entree++;
-					} else if (conso instanceof PlatPrincipal) {
-						plat++;
-					} else if (conso instanceof Dessert) {
-						dessert++;
-					} else {
-						boisson++;
-					}
+			while (consoTemp.containsAll(menu.getItems())) {
+				for (Consommable conso : menu.getItems()) {
+					consoTemp.remove(conso);
 				}
+				prix += menu.getPrix();
 			}
-			while (entree > 0 && plat > 0 && boisson > 0 && dessert > 0) { /// cherche les plats dans le menu pour les
-																			/// composer puis les retire de la liste des
-																			/// plats
-				entree--;
-				plat--;
-				boisson--;
-				dessert--;
-				Consommable temp;
-				int index = 0;
-				while (!((temp = tempmenu.get(index++)) instanceof Entree))
-					;
-				consoTemp.remove(temp);
-				tempmenu.remove(index-1);
-				index = 0;
-				while (!((temp = tempmenu.get(index++)) instanceof Dessert))
-					;
-				consoTemp.remove(temp);
-				tempmenu.remove(index-1);
-				index = 0;
-				while (!((temp = tempmenu.get(index++)) instanceof PlatPrincipal))
-					;
-				consoTemp.remove(temp);
-				tempmenu.remove(index-1);
-				index = 0;
-				while (!((temp = tempmenu.get(index++)) instanceof Boisson))
-					;
-				consoTemp.remove(temp);
-				tempmenu.remove(index-1);
-				prix += 15;
-			}
-			tempmenu.clear();
-			entree = 0;
-			plat = 0;
-			boisson = 0;
-			dessert = 0;
 		}
 		for (Consommable conso : consoTemp) { /// ajout de tous les derniers plats hors menu
 			prix += conso.getPrix();
 		}
-
 		return prix;
 	}
 
@@ -223,11 +174,10 @@ public class Carte {
 		int nbkcal = 0;
 		for (Menu m : this.menus) {
 			for (Consommable c : m.getItems()) {
-				if (c instanceof Nutrition && ((Nutrition) c).getKcal() != -1) /// si la valeur est -1 alors la valeur
-																				/// n'est pas renseigne
-
-					nbkcal += ((Nutrition) c).getKcal(); /// verifie que la classe contienne bien les information
-															/// calorique
+				if (c instanceof Nutrition) /// si la valeur est -1 alors la valeur
+					if (((Nutrition) c).getKcal() != -1)/// n'est pas renseigne
+						nbkcal += ((Nutrition) c).getKcal(); /// verifie que la classe contienne bien les information
+																/// calorique
 			}
 			if (nbkcal <= Kc + epsilon && nbkcal >= Kc - epsilon)
 				System.out.println(m);

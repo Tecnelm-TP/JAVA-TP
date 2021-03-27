@@ -213,7 +213,7 @@ public class Parser {
 		index = 0;
 
 		for (index = 0; index < str.length() && cat == null; index++) {
-			switch ( str.charAt(index)) {
+			switch (str.charAt(index)) {
 			case '\"':
 
 				categorie = getName(str);
