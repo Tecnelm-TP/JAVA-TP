@@ -23,16 +23,23 @@ public class FSMIOString{
 			String [] t;
 			State orig, dest;
 			t = readTransition(line);
+
 			orig = new State(t[0]);
 			this.fsms = new FSMIO<String, String>(orig);
 			while(line != null && !line.equals("")){
 				orig = new State(t[0]);
 				dest = new State(t[3]);
-				this.fsms.addState(orig);
-				this.fsms.addState(dest);
-				this.fsms.addTransition(orig, t[1], t[2], dest);
+				//this.fsms.addState(orig);
+				//this.fsms.addState(dest);
+				try {
+					this.fsms.addTransition(orig, t[1], t[2], dest);
+				} catch (DuplicateStateExecption e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				line = fileR.readLine();
-				t = readTransition(line);
+				if(line != null)
+					t = readTransition(line);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

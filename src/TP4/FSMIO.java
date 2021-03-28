@@ -23,10 +23,13 @@ public class FSMIO<T1, T2> {
 		this.tf = new TransitionFunction<T1, T2>();
 	}	
 
-	public void addTransition(State orig, T1 input, T2 output, State dest){
-		if(true){
+	public void addTransition(State orig, T1 input, T2 output, State dest) throws DuplicateStateExecption{
+		if(addState(orig) && addState(dest)){
 			tf.addTransition(orig, input, output, dest);
 		}
+		else
+			throw new DuplicateStateExecption();
+			
 	}
 	public boolean addState(State s){		
 		boolean done = false;
@@ -41,13 +44,22 @@ public class FSMIO<T1, T2> {
 		currentState = initialState;
 	}
 
-	public T2 doTransition(T1 input){		
-		Transition<T1, T2> nt = tf.getTransition(currentState, input); 
+	public T2 doTransition(T1 input) throws UnidefinedTransitionException{
 		
-		return null;
+		Transition<T1, T2> nt = tf.getTransition(currentState, input); 
+		currentState = nt.getDest();
+		
+		return  nt.getTag().getOutput();
 	}
 
 	public String toString(){
 		return tf.toString();
+	}
+
+	/**
+	 * @return the currentState
+	 */
+	public State getCurrentState() {
+		return currentState;
 	}
 }

@@ -37,8 +37,20 @@ public class SimpleFSMIO {
 	}
 	
 	public int faireTransition(char val){
-		int sortie = this.t.getSortie(etatCourant, val);
-		this.etatCourant = this.t.getEtatSuivant(etatCourant, val);
+		int sortie = -1;
+		try {
+			sortie = this.t.getSortie(etatCourant, val);
+		} catch (ErrorParameterExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			this.etatCourant = this.t.getEtatSuivant(etatCourant, val);
+		} catch (ErrorParameterExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return sortie;
 	}
 	
@@ -55,7 +67,7 @@ public class SimpleFSMIO {
 		try{
 			es = t.getEtatSuivant(s, e);
 		}
-		catch (Exception ex){
+		catch (ErrorParameterExeption ex){
 			System.out.println("Exception " + ex);
 			System.exit(0);
 		}
@@ -67,7 +79,7 @@ public class SimpleFSMIO {
 		try{
 			es = t.getSortie(s, e);
 		}
-		catch (Exception ex){
+		catch (ErrorParameterExeption ex){
 			System.out.println("Exception " + ex);
 			System.exit(0);		}
 		return es;

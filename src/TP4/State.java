@@ -6,6 +6,10 @@ public class State {
 	public State(String name){
 		this.name = name;
 	}
+	public State (State state)
+	{
+		this.name = state.name;
+	}
 	
 	public String getName(){
 		return this.name;
@@ -15,6 +19,7 @@ public class State {
 		return this.name.equals(e.name);		
 	}
 	
+	@Override
 	public String toString(){
 		return this.name;
 	}

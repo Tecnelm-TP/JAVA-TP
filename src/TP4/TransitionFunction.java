@@ -16,8 +16,24 @@ public class TransitionFunction <T1, T2>{
 	}
 	
 	// Retourne la transition correspondant à l'état orig et à l'entrée input
-	public Transition<T1, T2> getTransition(State orig, T1 input){
+	public Transition<T1, T2> getTransition(State orig, T1 input) throws UnidefinedTransitionException{
 		//Iterator iter = this.transitions.iterator();
-		return null;
+		for(Transition<T1, T2> transition : this.transitions)
+		{
+			if(transition.getOrig().equals(orig) && transition.getTag().getInput().equals(input))
+				return transition;
+		}
+		throw new UnidefinedTransitionException();
+	}
+	public List<Transition<T1, T2>> getTransitions(State state)
+	{
+		ArrayList<Transition<T1, T2>> transitions = new ArrayList<>();
+		
+		for(Transition<T1, T2> transition : this.transitions)
+		{
+			if(transition.getOrig().equals(state) )
+				transitions.add(transition);
+		}
+		return transitions;
 	}
 }
