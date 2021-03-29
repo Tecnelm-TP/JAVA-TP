@@ -2,241 +2,17 @@ package Parser;
 
 import java.util.ArrayList;
 
-import TP3.Boisson;
-import TP3.Carte;
-import TP3.Consommable;
-import TP3.Dessert;
-import TP3.Entree;
-import TP3.Menu;
-import TP3.PlatPrincipal;
-
 public class Parser {
 
-	private Carte carte;
-	private String file;
 	private int index;
 
-	public Parser(String file, Carte carte) {
-		this.carte = carte;
-		this.file = file;
-	}
-
-	public Carte getcarte() {
-		ArrayList<Consommable> consommable = new ArrayList<>();
-
-		if (carte == null) {
-			carte = new Carte();
-		}
-
-		for (Boisson b : getBoisson(file)) {
-			carte.addBoisson(b);
-			consommable.add(b);
-		}
-		for (PlatPrincipal b : getPlat(file)) {
-			carte.addPlatPrincipal(b);
-			consommable.add(b);
-		}
-		for (Dessert b : getDessert(file)) {
-			carte.addDessert(b);
-			consommable.add(b);
-		}
-		for (Entree b : getEntree(file)) {
-			carte.addEntree(b);
-			consommable.add(b);
-		}
-
-		for (Menu m : getMenu(file, consommable)) {
-			carte.addMenu(m);
-		}
-
-		return carte;
-	}
-
-	private ArrayList<Boisson> getBoisson(String str) {
-		ArrayList<Boisson> boisson = new ArrayList<>();
-		Categorie strcp = getTable("Boisson", file);
-		ArrayList<String> temp = splitItem(strcp.getContent());
-		for (String s : temp) {
-			int volume = -1;
-			int kCal = -1;
-			int glucide = -1;
-
-			try {
-
-				kCal = Integer.parseInt(getByID("kCal", s.replace(" ", "")));
-			} catch (Exception e) {
-				System.out.println("no cal, glucide specified");
-			}
-			try {
-
-				glucide = Integer.parseInt(getByID("glucide", s.replace(" ", "")));
-			} catch (Exception e) {
-				System.out.println("no cal, glucide specified");
-			}
-			try {
-
-				volume = Integer.parseInt(getByID("volume", s.replace(" ", "")));
-			} catch (Exception e) {
-				System.out.println("no cal, glucide specified");
-			}
-
-			int prix = Integer.parseInt(getByID("prix", s.replace(" ", "")));
-			String name = getByID("name", s).replace("\"", "");
-
-			boisson.add(new Boisson(volume, name, prix, kCal, glucide));
-		}
-
-		return boisson;
-	}
-
-	private ArrayList<Entree> getEntree(String str) {
-		ArrayList<Entree> entree = new ArrayList<>();
-		Categorie strcp = getTable("Entree", file);
-		ArrayList<String> temp = splitItem(strcp.getContent());
-		for (String s : temp) {
-
-			int kCal = -1;
-			int glucide = -1;
-			try {
-
-				kCal = Integer.parseInt(getByID("kCal", s.replace(" ", "")));
-			} catch (Exception e) {
-				System.out.println("no cal, glucide specified");
-			}
-			try {
-
-				glucide = Integer.parseInt(getByID("glucide", s.replace(" ", "")));
-			} catch (Exception e) {
-				System.out.println("no cal, glucide specified");
-			}
-
-			int prix = Integer.parseInt(getByID("prix", s.replace(" ", "")));
-			String name = getByID("name", s).replace("\"", "");
-
-			entree.add(new Entree(name, prix, kCal, glucide));
-		}
-		return entree;
-	}
-
-	private ArrayList<PlatPrincipal> getPlat(String str) {
-		ArrayList<PlatPrincipal> plat = new ArrayList<>();
-		Categorie strcp = getTable("Plat", file);
-		ArrayList<String> temp = splitItem(strcp.getContent());
-		for (String s : temp) {
-			int kCal = -1;
-			int glucide = -1;
-			try {
-
-				kCal = Integer.parseInt(getByID("kCal", s.replace(" ", "")));
-				glucide = Integer.parseInt(getByID("glucide", s.replace(" ", "")));
-			} catch (Exception e) {
-				System.out.println("no cal, glucide specified");
-			}
-			int prix = Integer.parseInt(getByID("prix", s.replace(" ", "")));
-			String name = getByID("name", s).replace("\"", "");
-
-			plat.add(new PlatPrincipal(name, prix, kCal, glucide));
-		}
-		return plat;
-	}
-
-	private ArrayList<Dessert> getDessert(String str) {
-		ArrayList<Dessert> dessert = new ArrayList<>();
-		Categorie strcp = getTable("Dessert", file);
-		ArrayList<String> temp = splitItem(strcp.getContent());
-		for (String s : temp) {
-			int kCal = -1;
-			int glucide = -1;
-			try {
-
-				kCal = Integer.parseInt(getByID("kCal", s.replace(" ", "")));
-			} catch (Exception e) {
-				System.out.println("no cal, glucide specified");
-			}
-			try {
-
-				glucide = Integer.parseInt(getByID("glucide", s.replace(" ", "")));
-			} catch (Exception e) {
-				System.out.println("no cal, glucide specified");
-			}
-			int prix = Integer.parseInt(getByID("prix", s.replace(" ", "")));
-			String name = getByID("name", s).replace("\"", "");
-
-			dessert.add(new Dessert(name, prix, kCal, glucide));
-		}
-		return dessert;
-	}
-
-	private ArrayList<Menu> getMenu(String str, ArrayList<Consommable> conso) {
-		ArrayList<Menu> menu = new ArrayList<>();
-
-		Categorie strcp = getTable("Menu", file);
-		ArrayList<String> temp = splitItem(strcp.getContent());
-
-		for (String s : temp) {
-			int prix = Integer.parseInt(getByID("prix", s.replace(" ", "")));
-			String plat = getByID("plat", s).replace("\"", "");
-			String entree = getByID("entree", s).replace("\"", "");
-			String dessert = getByID("dessert", s).replace("\"", "");
-			String boisson = getByID("boisson", s).replace("\"", "");
-
-			PlatPrincipal p = null;
-			Dessert d = null;
-			Entree e = null;
-			Boisson b = null;
-
-			for (Consommable c : conso) {
-				if (c.getNom().equals(plat)) {
-					p = (PlatPrincipal) c;
-				}
-				if (c.getNom().equals(entree)) {
-					e = (Entree) c;
-				}
-				if (c.getNom().equals(dessert)) {
-					d = (Dessert) c;
-				}
-				if (c.getNom().equals(boisson)) {
-					b = (Boisson) c;
-				}
-
-			}
-			menu.add(new Menu(prix, e, p, d, b));
-
-		}
-		return menu;
-	}
-
-	private Categorie getTable(String name, String str) {
-
-		Categorie cat = null;
-		String categorie;
-		index = 0;
-
-		for (index = 0; index < str.length() && cat == null; index++) {
-			switch (str.charAt(index)) {
-			case '\"':
-
-				categorie = getName(str);
-				if (categorie.equals(name)) {
-					cat = parseCategorie(name, str);
-				}
-				break;
-			case ':':
-				// goNextChar(",", str);
-				goNextCat(str);
-				break;
-			}
-
-		}
-
-		return cat;
-
+	public Parser(String file) {
 	}
 
 	private String getName(String str) {
 		StringBuilder sb = new StringBuilder();
 		index++;
-		while (str.charAt(index) != '"') {
+		while (str.charAt(index) != '"' && index < str.length()) {
 			sb.append(str.charAt(index));
 			index++;
 		}
@@ -259,97 +35,10 @@ public class Parser {
 
 	}
 
-	private void goNextCat(String str) {
-		ArrayList<Character> braquet = new ArrayList<>();
-		goNextChar("[", str);
-		Boolean stop = false;
-		Character b2 = '[';
-		do {
-			switch (str.charAt(index)) {
-			case ']':
-				braquet.remove(b2);
-				break;
-			case '[':
-				braquet.add(b2);
-				break;
-			default:
-				break;
-			}
-			stop = braquet.size() == 0 && (str.charAt(index + 1) == '\"');
-			if (!stop)
-				index++;
-
-		} while (!stop && index + 1 < str.length());
-
-	}
-
-	private Categorie parseCategorie(String name, String str) {
-		StringBuilder sb = new StringBuilder();
-
-		ArrayList<Character> braquet = new ArrayList<>();
-		goNextChar("[{", str);
-		Character b1 = '{';
-		Character b2 = '[';
-
-		do {
-			switch (str.charAt(index)) {
-			case ']':
-				braquet.remove(b2);
-				break;
-			case '[':
-				braquet.add(b2);
-				break;
-			case '{':
-				braquet.add(b1);
-				break;
-			case '}':
-				braquet.remove(b1);
-				break;
-			default:
-				break;
-			}
-			sb.append(str.charAt(index));
-			index++;
-
-		} while (braquet.size() != 0);
-		return new Categorie(name, sb.toString().trim());
-	}
-
-	private ArrayList<String> splitItem(String str) {
-		ArrayList<String> items = new ArrayList<>();
-		index = 0;
-		StringBuilder sb = new StringBuilder();
-		ArrayList<Character> braquet = new ArrayList<>();
-		goNextChar("{", str);
-		Character b1 = '{';
-
-		while (index < str.length()) {
-			do {
-				switch (str.charAt(index)) {
-				case '{':
-					braquet.add(b1);
-					break;
-				case '}':
-					braquet.remove(b1);
-					break;
-				default:
-					break;
-				}
-				sb.append(str.charAt(index));
-				index++;
-
-			} while (braquet.size() != 0);
-			items.add(sb.toString());
-			sb.setLength(0);
-			goNextChar("{", str);
-		}
-
-		return items;
-	}
-
-	private String getByID(String key, String str) {
+	public  String getByID(String key, String str) throws NotPresentException {
 		String ret = null;
 		StringBuilder sb = new StringBuilder();
+
 		for (index = 0; index < str.length() && ret == null; index++) {
 			switch (str.charAt(index)) {
 			case '\"':
@@ -364,12 +53,167 @@ public class Parser {
 				}
 				break;
 			case ':':
-				goNextChar(",", str);
+				goNextElem(str);
+				index--;
+				break;
+			}
+
+		}
+		if (ret == null)
+			throw new NotPresentException();
+		return ret;
+	}
+
+	public ArrayList<String> getArray(String key, String str) throws InvalidTypeException, NotPresentException {
+		ArrayList<String> ret = null;
+
+		String categorie;
+		index = 0;
+
+		for (index = 0; index < str.length() && ret == null; index++) {
+
+			switch (str.charAt(index)) {
+			case '\"':
+
+				categorie = getName(str);
+				if (categorie.equals(key)) {
+					goNextChar(":", str);
+					ret = parseArray(str);
+				} else {
+					goNextElem(str);
+					index--;
+				}
+
+				break;
+			case ':':
+				goNextElem(str);
+				index--;
 				break;
 			}
 
 		}
 
+		if (ret == null)
+			throw new NotPresentException();
 		return ret;
+
 	}
+
+	private ArrayList<String> parseArray(String str) throws InvalidTypeException {
+		ArrayList<Character> braquet = new ArrayList<>();
+		ArrayList<Character> braquet1 = new ArrayList<>();
+
+		ArrayList<String> ret = new ArrayList<>();
+		StringBuilder tmp = new StringBuilder();
+
+		final char c = '[';
+		Boolean stop = false;
+		while (!stop && index + 1 < str.length()) {
+			index++;
+			switch (str.charAt(index)) {
+			case c:
+				stop = true;
+				break;
+			case ' ':
+			case '\t':
+			case '\n':
+			case '\b':
+			case '\r':
+				break;
+			default:
+				throw new InvalidTypeException("Not an array");
+			}
+
+		}
+
+		Character b2 = '[';
+		Character b = '{';
+		char tmpchar;
+		do {
+			tmpchar = str.charAt(index);
+			switch ((tmpchar)) {
+			case ']':
+				braquet.remove(b2);
+
+				break;
+			case '[':
+				braquet.add(b2);
+				break;
+			case '}':
+				braquet1.remove(b);
+				tmp.append(tmpchar);
+
+				if (braquet1.size() == 0) {
+					ret.add(tmp.toString().replace("\t", "").replace("\n", ""));
+					tmp.setLength(0);
+				}
+				break;
+			case '{':
+				tmp.append(tmpchar);
+
+				braquet1.add(b);
+				break;
+			case ',':
+				if (braquet1.size() != 0)
+					tmp.append(tmpchar);
+				break;
+			default:
+				tmp.append(tmpchar);
+
+				break;
+			}
+			stop = braquet.size() == 0 && index < str.length();
+
+			if (!stop && index + 1 < str.length())
+				index++;
+
+		} while (!stop && index + 1 < str.length());
+
+		return ret;
+
+	}
+
+	private void goNextElem(String str) {
+
+		ArrayList<Character> braquet = new ArrayList<>();
+		Boolean stop = false;
+		Boolean canBeElem = false;
+		Character b2 = '[';
+		Character b = '{';
+		do {
+			switch (str.charAt(index)) {
+			case ']':
+				braquet.remove(b2);
+				break;
+			case '[':
+				canBeElem = true;
+				braquet.add(b2);
+				break;
+			case '{':
+				canBeElem = true;
+				braquet.add(b);
+				break;
+			case '}':
+				if (!braquet.remove(b))
+					stop = true;
+				break;
+			case '\"':
+				stop = braquet.size() == 0 && canBeElem ? true : false;
+				break;
+			case ',':
+				if (braquet.size() == 0) {
+					goNextChar("\"", str);
+					stop = true;
+				}
+				break;
+			default:
+				break;
+			}
+			if (!stop)
+				index++;
+
+		} while (!stop && index + 1 < str.length());
+
+	}
+
 }

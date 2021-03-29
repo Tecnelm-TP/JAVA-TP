@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Parser.Parser;
-
 public class Carte {
 	private ArrayList<Consommable> entrees;
 	private ArrayList<Consommable> platsPrincipaux;
@@ -31,7 +29,7 @@ public class Carte {
 				sb.append(line);
 			}
 			reader.close();
-			new Parser(sb.toString(), this).getcarte(); /// creation de la carte a partir du fichier
+			CarteParser.getCarte(sb.toString(), this);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -207,5 +205,6 @@ public class Carte {
 		}
 		return ret;
 	}
+
 
 }
