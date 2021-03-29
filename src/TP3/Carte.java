@@ -128,6 +128,11 @@ public class Carte {
 			}
 		} else
 			result = true;
+		
+		if(result)
+		{
+			System.err.println("Error duplicate product: " +c.getNom());
+		}
 
 		return !result;
 
