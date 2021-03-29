@@ -1,5 +1,7 @@
 package TP3;
 
+import java.util.ArrayList;
+
 public class TestRestaurant {
 
 	public static void main(String[] args) {
