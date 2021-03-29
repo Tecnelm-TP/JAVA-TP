@@ -15,7 +15,12 @@ public class Carte {
 
 	private ArrayList<Menu> menus;
 
-	public Carte createCarte(String fileName) {
+	public Carte (String fileName) {
+		entrees = new ArrayList<Consommable>();
+		platsPrincipaux = new ArrayList<Consommable>();/// creation des listes d'element
+		desserts = new ArrayList<Consommable>();
+		boissons = new ArrayList<Consommable>();
+		menus = new ArrayList<Menu>();
 
 		try {
 			String path = getClass().getResource(fileName).getPath();
@@ -33,7 +38,6 @@ public class Carte {
 			e.printStackTrace();
 		}
 
-		return this;
 
 	}
 

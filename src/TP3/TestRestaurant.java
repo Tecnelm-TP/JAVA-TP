@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TestRestaurant {
 
 	public static void main(String[] args) {
-		Carte carte = new Carte().createCarte("/test1.carte");
+		Carte carte = new Carte("/test1.carte");
 		ArrayList<Consommable> allElem = carte.getAllelem();
 
 		Entree e = new Entree("Salade verte", 4, 100, 0);
