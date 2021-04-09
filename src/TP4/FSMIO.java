@@ -23,12 +23,13 @@ public class FSMIO<T1, T2> {
 		this.tf = new TransitionFunction<T1, T2>();
 	}	
 
-	public void addTransition(State orig, T1 input, T2 output, State dest) throws DuplicateStateExecption{
-		if(addState(orig) && addState(dest)){
+	public void addTransition(State orig, T1 input, T2 output, State dest) throws MissingStateExecption{
+		
+		if(this.states.contains(dest) && this.states.contains(orig)){
 			tf.addTransition(orig, input, output, dest);
 		}
 		else
-			throw new DuplicateStateExecption();
+			throw new MissingStateExecption();
 			
 	}
 	public boolean addState(State s){		

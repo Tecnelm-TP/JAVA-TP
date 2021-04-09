@@ -15,8 +15,19 @@ public class State {
 		return this.name;
 	}
 
+	@Override
+	public boolean equals(Object e){
+
+		if(e instanceof State)
+		{
+			return this.name.equals(((State)e).name);
+		}
+		else 
+		return false;		
+	}
+	
 	public boolean equals(State e){
-		return this.name.equals(e.name);		
+		return this.name.equals(e.name);
 	}
 	
 	@Override

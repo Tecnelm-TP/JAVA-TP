@@ -29,11 +29,11 @@ public class FSMIOString{
 			while(line != null && !line.equals("")){
 				orig = new State(t[0]);
 				dest = new State(t[3]);
-				//this.fsms.addState(orig);
-				//this.fsms.addState(dest);
+				this.fsms.addState(orig);
+				this.fsms.addState(dest);
 				try {
 					this.fsms.addTransition(orig, t[1], t[2], dest);
-				} catch (DuplicateStateExecption e) {
+				} catch (MissingStateExecption e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

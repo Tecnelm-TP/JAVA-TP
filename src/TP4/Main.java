@@ -33,13 +33,18 @@ public class Main {
 		FSMIO<Character, Integer> fsm = new FSMIO<>(states, states.get(0));
 
 		try {
+			fsm.addState(states.get(0));
+			fsm.addState(states.get(1));
+			fsm.addState(states.get(2));
+			
+			
 			fsm.addTransition(new State(states.get(0)), 'a', 0, new State(states.get(0)));
 			fsm.addTransition(new State(states.get(0)), 'b', 0, new State(states.get(2)));
 			fsm.addTransition(new State(states.get(1)), 'a', 0, new State(states.get(0)));
 			fsm.addTransition(new State(states.get(1)), 'b', 1, new State(states.get(1)));
 			fsm.addTransition(new State(states.get(2)), 'a', 1, new State(states.get(1)));
 			fsm.addTransition(new State(states.get(2)), 'b', 1, new State(states.get(2)));
-		} catch (DuplicateStateExecption e) {
+		} catch (MissingStateExecption e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

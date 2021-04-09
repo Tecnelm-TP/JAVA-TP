@@ -1,6 +1,6 @@
 package TP4;
 
-public class DuplicateStateExecption extends Exception {
+public class MissingStateExecption extends Exception {
 
 	/**
 	 * 
