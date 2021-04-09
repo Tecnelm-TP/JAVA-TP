@@ -11,31 +11,9 @@ public class SimpleFonctionTransition  {
 
 	public SimpleFonctionTransition(String nomsEtats[], char entrees[]) {
 
-		this.nomsEtats = new ArrayList<>(Arrays.asList(nomsEtats)) {
-			@Override
-			public boolean contains(Object o) {
-				if (o instanceof String) {
-					for (String str : this) {
-						if (str.equals((String) o))
-							return true;
-					}
-				}
-				return false;
-			}
-		};
+		this.nomsEtats = new ArrayList<>(Arrays.asList(nomsEtats));
 
-		this.entree = new ArrayList<>() {
-			@Override
-			public boolean contains(Object o) {
-				if (o instanceof Character) {
-					for (Character c : this) {
-						if (c.equals((Character) o))
-							return true;
-					}
-				}
-				return false;
-			}
-		};
+		this.entree = new ArrayList<>() ;
 
 		this.state = new HashMap<>();
 
@@ -49,19 +27,26 @@ public class SimpleFonctionTransition  {
 
 	}
 
-	public String getEtatSuivant(String etatOrig, char entree) throws ErrorParameterExeption{
-
-			if (!this.nomsEtats.contains(etatOrig) || !this.entree.contains(entree))
-				throw new ErrorParameterExeption("bad parameter");
-	
-			String tmp = state.get(new Trans<Character>(etatOrig, entree)).getName();
+	public String getEtatSuivant(String etatOrig, char entree) {
 		return state.get(new Trans<Character>(etatOrig, entree)).getName();
 	}
 
-	public int getSortie(String etatOrig, char entree)  throws ErrorParameterExeption {
+	public int getSortie(String etatOrig, char entree)   {
 		
-		if (!this.nomsEtats.contains(etatOrig) || !this.entree.contains(entree))
-			throw new ErrorParameterExeption("bad parameter");
 		return state.get(new Trans<Character>(etatOrig, entree)).getValue();
+	}
+
+	/**
+	 * @return the nomsEtats
+	 */
+	public ArrayList<String> getNomsEtats() {
+		return nomsEtats;
+	}
+
+	/**
+	 * @return the entree
+	 */
+	public ArrayList<Character> getEntree() {
+		return entree;
 	}
 }

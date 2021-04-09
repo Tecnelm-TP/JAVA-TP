@@ -22,10 +22,9 @@ public class Main {
 		auto.ajouterTransition("s2", 'b', "s2", 1);
 		auto.ajouterTransition("s3", 'a', "s2", 1);
 		auto.ajouterTransition("s3", 'b', "s3", 1);
-		System.out.println(auto.getEtatSuivant("s1", 'b'));
-		System.out.println(auto.getSortie("s1", 'b'));
 
 		String sequence = "abbaabbaaa";
+		System.out.println("Réalisation de la séquence :"+sequence);
 
 		List<State> states = new ArrayList<>();
 		for (String str : nomEtats) {
@@ -50,8 +49,13 @@ public class Main {
 		System.out.println("Debut de la séquence");
 		for (char c : sequence.toCharArray()) {
 			System.out.println("lettre :"+c);
-			System.out.println("FSM ");
-			out = auto.faireTransition(c);
+			System.out.println("FSM1");
+			try {
+				out = auto.faireTransition(c);
+			} catch (ErrorParameterExeption e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			System.out.println("Etat courant:\t" + auto.getEtatCourant() + "\tsortie:\t" + out);
 			try {
 				System.out.println("FSM2 ");
@@ -65,7 +69,7 @@ public class Main {
 			  try { 
 				  System.out.println("FSM3 ");
 				  strOut = fsm1.doTransition(""+c);
-				  System.out.println("Etat courant:\t"+fsm1.getCurrentState().toString()+"\tsortie:\t"+out);
+				  System.out.println("Etat courant:\t"+fsm1.getCurrentState().toString()+"\tsortie:\t"+strOut);
 			  
 			  } catch (UnidefinedTransitionException e) { // TODO Auto-generated catch
 			   e.printStackTrace();

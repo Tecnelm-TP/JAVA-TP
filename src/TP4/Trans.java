@@ -23,7 +23,7 @@ public class Trans<T> {
 		if (obj == this)
 			return true;
 		if (obj instanceof Trans) {
-			return this.name.equals(((Trans) obj).name) && this.value.equals(((Trans) obj).value);
+			return this.name.equals(((Trans<?>) obj).name) && this.value.equals(((Trans<?>) obj).value);
 		}
 		return false;
 
