@@ -18,6 +18,8 @@ public class State {
 	@Override
 	public boolean equals(Object e){
 
+		if(this == e)
+			return true;
 		if(e instanceof State)
 		{
 			return this.name.equals(((State)e).name);

@@ -22,25 +22,18 @@ public class SimpleFonctionTransition  {
 
 	}
 
-	public void ajouterTransition(String etatOrig, char entree, String etatDest, int sortie)  {
+	public void ajouterTransition(String etatOrig, char entree, String etatDest, int sortie) {
 		this.state.put(new Trans<Character>(etatOrig, entree), new Trans<Integer>(etatDest, sortie));
 
 	}
 
-	public String getEtatSuivant(String etatOrig, char entree)  throws UnidefinedTransitionException {
-		
-		Trans<Integer> tr = state.get(new Trans<Character>(etatOrig, entree));
-		if (tr == null)
-			throw new UnidefinedTransitionException();
-		return tr.getName();
+	public String getEtatSuivant(String etatOrig, char entree) {
+		return state.get(new Trans<Character>(etatOrig, entree)).getName();
 	}
 
-	public int getSortie(String etatOrig, char entree)  throws UnidefinedTransitionException {
+	public int getSortie(String etatOrig, char entree)   {
 		
-		Trans<Integer> tr = state.get(new Trans<Character>(etatOrig, entree));
-		if (tr == null)
-			throw new UnidefinedTransitionException();
-		return tr.getValue();
+		return state.get(new Trans<Character>(etatOrig, entree)).getValue();
 	}
 
 	/**
