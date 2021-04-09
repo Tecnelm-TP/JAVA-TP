@@ -26,10 +26,6 @@ public class State {
 		return false;		
 	}
 	
-	public boolean equals(State e){
-		return this.name.equals(e.name);
-	}
-	
 	@Override
 	public String toString(){
 		return this.name;
