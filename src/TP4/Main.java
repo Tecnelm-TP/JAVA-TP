@@ -1,5 +1,7 @@
 package TP4;
 
+
+
 public class Main {
 
 	public static void main(String args[]) {
@@ -50,7 +52,7 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		String sequence = "abbaabbaaa";
+		String sequence = "abaabbaaa";
 		System.out.println("Réalisation de la séquence :"+sequence);
 
 
