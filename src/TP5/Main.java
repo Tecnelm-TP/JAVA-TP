@@ -77,8 +77,8 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		FSMIO<String, String> fsm1 = new FSMIOString(
-				"C:\\Users\\cleme\\eclipse-workspace\\TP4_CS312_JAVA\\src\\res\\FSMTest").getFSM();
+		FSMIO<String, String> fsm1 = new FSMIOString(Main.class.getClassLoader().getResource("FSMTest").getPath())
+				.getFSM();
 
 		System.out.println("Debut de la séquence");
 		for (char c : sequence.toCharArray()) {
@@ -109,7 +109,6 @@ public class Main {
 				e.printStackTrace();
 
 			}
-			
 
 		}
 

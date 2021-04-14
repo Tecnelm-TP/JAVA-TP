@@ -18,6 +18,7 @@ public class FSMIOString{
 	public  FSMIOString (String filename) {
 		BufferedReader fileR;
 		try {
+//			fileR = new BufferedReader(new FileReader(getClass().getResource(filename).getPath()));
 			fileR = new BufferedReader(new FileReader(filename));
 			String line = fileR.readLine();
 			String [] t;
