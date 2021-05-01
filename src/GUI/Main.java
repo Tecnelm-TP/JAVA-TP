@@ -4,8 +4,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		new FSMIOStringviewer<Character,Integer>("fsmio");
 		
+		new FSMIOViewer<Character, Integer>("fsmioTest");
+
 
 	}
 
