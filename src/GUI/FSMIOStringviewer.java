@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -24,7 +22,6 @@ import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import TP5.FSMIO;
-import TP5.FSMIOString;
 import TP5.UnidefinedTransitionException;
 
 public class FSMIOStringviewer<T1, T2> extends JFrame {
@@ -40,7 +37,6 @@ public class FSMIOStringviewer<T1, T2> extends JFrame {
 
 	private JMenu transition;
 	private JMenuItem reset;
-	private JMenuItem cancel;
 	private ArrayList<JMenuItem> entreeL;
 	private FSMIO<T1, T2> fsm;
 
@@ -98,9 +94,8 @@ public class FSMIOStringviewer<T1, T2> extends JFrame {
 		transition = new JMenu("Transition");
 		entreeL = new ArrayList<JMenuItem>();
 		reset = new JMenuItem("reset");
-		cancel = new JMenuItem("cancel");
+
 		transition.add(reset);
-		transition.add(cancel);
 
 		barMenu = new JMenuBar();
 
@@ -157,8 +152,8 @@ public class FSMIOStringviewer<T1, T2> extends JFrame {
 						public void actionPerformed(ActionEvent e) {
 							try {
 								T2 out = fsm.doTransition(s);
-								currentState.setText(
-										"New State: " + fsm.getCurrentState() + " Output: " + out.toString());
+								currentState
+										.setText("New State: " + fsm.getCurrentState() + " Output: " + out.toString());
 							} catch (UnidefinedTransitionException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

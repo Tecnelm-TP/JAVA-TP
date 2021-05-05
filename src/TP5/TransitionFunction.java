@@ -49,9 +49,9 @@ public class TransitionFunction<T1, T2> implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for(Transition<T1, T2> t : transitions)
-		{
-			sb.append(t.getOrig().toString() + "-->"+t.getDest().toString()+"\tTag= "+t.getTag().toString()+"\n");
+		for (Transition<T1, T2> t : transitions) {
+			sb.append(
+					t.getOrig().toString() + "-->" + t.getDest().toString() + "\tTag= " + t.getTag().toString() + "\n");
 		}
 		return sb.toString();
 	}

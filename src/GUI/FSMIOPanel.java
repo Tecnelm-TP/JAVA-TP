@@ -7,8 +7,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,12 +20,10 @@ import TP5.State;
 import TP5.UnidefinedTransitionException;
 
 public class FSMIOPanel<T1, T2> extends JPanel {
-	
 
 	private static final long serialVersionUID = 1L;
 
-
-	private ArrayList<JMenuItem> entreeL;
+	private ArrayList<AbstractButton> entreeL;
 	private FSMIO<T1, T2> fsm;
 
 	private JScrollPane panel;
@@ -32,14 +31,26 @@ public class FSMIOPanel<T1, T2> extends JPanel {
 
 	private JLabel pathFolder;
 	private JLabel currentState;
-	private JMenu transition;
+	private JComponent transition;
 	private T2 output;
 	private State currentstate;
+	private File f;
 
-	
-	public FSMIOPanel(File f,JMenu transition) {
+	public FSMIOPanel(File f, JComponent transition) {
+
+		this();
+		this.f = f;
+		this.transition = transition;
+		this.create();
+
+	}
+
+	public FSMIOPanel() {
+
 		super();
-		
+		this.f = null;
+		this.transition = null;
+
 		editeur = new JTextArea();
 		panel = new JScrollPane(editeur);
 		editeur.setLineWrap(true);
@@ -49,20 +60,9 @@ public class FSMIOPanel<T1, T2> extends JPanel {
 		pathFolder.setVisible(true);
 
 		currentState = new JLabel();
-		
-		this.transition = transition;
-		entreeL = new ArrayList<JMenuItem>();
-		if(f == null)
-		{
-			this.closeFile();
-		}
-		else
-			this.openFile(f);
-		
+		entreeL = new ArrayList<AbstractButton>();
 
-		/// declaration du panel principal
-
-		this.setLayout(new BorderLayout());/// placement des élements 
+		this.setLayout(new BorderLayout());/// placement des élements
 		this.add(pathFolder, BorderLayout.NORTH);
 		this.add(panel, BorderLayout.CENTER);
 		this.add(currentState, BorderLayout.SOUTH);
@@ -70,28 +70,24 @@ public class FSMIOPanel<T1, T2> extends JPanel {
 		this.setMinimumSize(new Dimension(300, 200));
 		this.setVisible(true);
 
-
 	}
 
-	private void openFile(File f) {
-		
-		
+	public FSMIOPanel<T1, T2> create() {
+		if (f != null) {
 			fsm = new FSMIO<T1, T2>(f.getAbsolutePath()).getFSMIO();
-
 			editeur.setText(fsm.toString());
 
 			for (T1 s : fsm.getEnter()) {
 				if (!alreadyContains(s, entreeL)) {
-					JMenuItem item = new JMenuItem(s.toString());
+					AbstractButton item = new JMenuItem(s.toString());
 					item.addActionListener(new ActionListener() {
 
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							try {
 								output = fsm.doTransition(s);
-								currentstate =fsm.getCurrentState();
-								currentState.setText(
-										"New State: " + currentstate + " Output: " + output.toString());
+								currentstate = fsm.getCurrentState();
+								currentState.setText("New State: " + currentstate + " Output: " + output.toString());
 							} catch (UnidefinedTransitionException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -99,27 +95,38 @@ public class FSMIOPanel<T1, T2> extends JPanel {
 
 						}
 					});
-					/// ajout des entrees pour l'execution 
+					/// ajout des entrees pour l'execution
 					entreeL.add(item);
-					transition.add(item);
+					if (transition != null)
+						transition.add(item);
 				}
 			}
 
 			pathFolder.setText("File: " + f.getName());
 			currentState.setText("FSMIO loaded. Current Sate: " + fsm.getCurrentState());
-			
-		}
+		} else
+			closeFile();
+		return this;
+	}
 
-	
+	public FSMIOPanel<T1, T2> withFile(File f) {
+		this.f = f;
+		return this;
+	}
+
+	public FSMIOPanel<T1, T2> withContainer(JComponent c) {
+		this.transition = c;
+		return this;
+	}
 
 	protected void closeFile() {
 		pathFolder.setText("No file Displayed");
 		editeur.setText("");
 		currentState.setText("");
-		for(JMenuItem item : entreeL)
-		{
-			this.transition.remove(item);
-		}
+		if (transition != null)
+			for (JComponent item : entreeL) {
+				this.transition.remove(item);
+			}
 
 	}
 
@@ -127,8 +134,8 @@ public class FSMIOPanel<T1, T2> extends JPanel {
 		this.closeFile();
 	}
 
-	private boolean alreadyContains(T1 s, ArrayList<JMenuItem> item) {
-		for (JMenuItem i : item) {
+	private boolean alreadyContains(T1 s, ArrayList<AbstractButton> item) {
+		for (AbstractButton i : item) {
 			if (i.getText().equals(s))
 				return true;
 		}
@@ -155,6 +162,12 @@ public class FSMIOPanel<T1, T2> extends JPanel {
 	public FSMIO<T1, T2> getFsm() {
 		return fsm;
 	}
-	
+
+	public void reset() {
+		this.fsm.reset();
+		this.currentstate = fsm.getCurrentState();
+		currentState.setText("FSM Reset . current State : " + currentstate);
+
+	}
 
 }

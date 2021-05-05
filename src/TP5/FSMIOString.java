@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 // A FSMIO with Strings in the Tag reading the automaton description from a file
-public class FSMIOString{
+public class FSMIOString {
 
 	FSMIO<String, String> fsms;
 
@@ -14,20 +14,20 @@ public class FSMIOString{
 	// The file contains one transition per line
 	// Every line has the following syntax :
 	// statenameorig input output statenamedest
-	// The first transition is supposed to start from the initial state 
-	public  FSMIOString (String filename) {
+	// The first transition is supposed to start from the initial state
+	public FSMIOString(String filename) {
 		BufferedReader fileR;
 		try {
 //			fileR = new BufferedReader(new FileReader(getClass().getResource(filename).getPath()));
 			fileR = new BufferedReader(new FileReader(filename));
 			String line = fileR.readLine();
-			String [] t;
+			String[] t;
 			State orig, dest;
 			t = readTransition(line);
 
 			orig = new State(t[0]);
 			this.fsms = new FSMIO<String, String>(orig);
-			while(line != null && !line.equals("")){
+			while (line != null && !line.equals("")) {
 				orig = new State(t[0]);
 				dest = new State(t[3]);
 				this.fsms.addState(orig);
@@ -39,7 +39,7 @@ public class FSMIOString{
 					e.printStackTrace();
 				}
 				line = fileR.readLine();
-				if(line != null)
+				if (line != null)
 					t = readTransition(line);
 			}
 		} catch (FileNotFoundException e) {
@@ -56,14 +56,12 @@ public class FSMIOString{
 		String word[] = new String[4];
 		int cword = 0;
 		int pos = 0;
-		while (pos < line.length() && cword <=3){
+		while (pos < line.length() && cword <= 3) {
 			word[cword] = new String();
-			while (pos < line.length() 
-					&& (line.charAt(pos) == ' '
-					|| line.charAt(pos) == '\t')){ pos++;}
-			while (pos < line.length() 
-					&& line.charAt(pos) != ' ' 
-					&& line.charAt(pos) != '\t'){ 
+			while (pos < line.length() && (line.charAt(pos) == ' ' || line.charAt(pos) == '\t')) {
+				pos++;
+			}
+			while (pos < line.length() && line.charAt(pos) != ' ' && line.charAt(pos) != '\t') {
 				word[cword] += line.charAt(pos++);
 			}
 			cword++;
@@ -71,12 +69,11 @@ public class FSMIOString{
 		return word;
 	}
 
-
-	public FSMIO<String, String> getFSM(){
+	public FSMIO<String, String> getFSM() {
 		return this.fsms;
 	}
 
-	public String toString(){
+	public String toString() {
 		return this.fsms.toString();
 	}
 

@@ -14,7 +14,8 @@ public class SimpleFSMIO {
 		this.etatCourant = this.etatInit = etatInit;
 	}
 
-	public void ajouterTransition(String etatOrig, char valEntree, String etatDest, int sortie) throws ErrorParameterExeption {
+	public void ajouterTransition(String etatOrig, char valEntree, String etatDest, int sortie)
+			throws ErrorParameterExeption {
 		boolean etatOrigValide = false;
 		boolean etatDestValide = false;
 		boolean entreeValide = false;
@@ -25,7 +26,6 @@ public class SimpleFSMIO {
 			if (etatDest.equals(this.etats[ie]))
 				etatDestValide = true;
 		}
-		
 
 		for (int i = 0; i < this.entrees.length && !entreeValide; i++) {
 			entreeValide = (valEntree == this.entrees[i]);
@@ -33,17 +33,16 @@ public class SimpleFSMIO {
 
 		if (etatOrigValide && etatDestValide && entreeValide) {
 			this.t.ajouterTransition(etatOrig, valEntree, etatDest, sortie);
-		}
-		else
+		} else
 			throw new ErrorParameterExeption();
 	}
 
-	public int faireTransition(char val) throws ErrorParameterExeption,UnidefinedTransitionException {
+	public int faireTransition(char val) throws ErrorParameterExeption, UnidefinedTransitionException {
 
 		int sortie = -1;
 		if (!t.getEntree().contains(val))
 			throw new ErrorParameterExeption();
-		
+
 		sortie = this.t.getSortie(etatCourant, val);
 		this.etatCourant = this.t.getEtatSuivant(etatCourant, val);
 
@@ -58,7 +57,7 @@ public class SimpleFSMIO {
 		return this.etatCourant;
 	}
 
-	public String getEtatSuivant(String s, char e) throws ErrorParameterExeption,UnidefinedTransitionException {
+	public String getEtatSuivant(String s, char e) throws ErrorParameterExeption, UnidefinedTransitionException {
 		String es = "";
 
 		if (!t.getNomsEtats().contains(s) || !t.getEntree().contains(e))
@@ -69,7 +68,7 @@ public class SimpleFSMIO {
 		return (es);
 	}
 
-	public int getSortie(String s, char e) throws ErrorParameterExeption,UnidefinedTransitionException {
+	public int getSortie(String s, char e) throws ErrorParameterExeption, UnidefinedTransitionException {
 		int es = 0;
 		if (!t.getNomsEtats().contains(s) || !t.getEntree().contains(e))
 			throw new ErrorParameterExeption();

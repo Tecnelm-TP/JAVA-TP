@@ -30,11 +30,11 @@ public class Trans<T> {
 	}
 
 	@Override
-	    public int hashCode() {
-	        int hash = 5;
-	        hash =   hash + (this.name != null ? this.name.hashCode() : 0);
-	        hash =   hash + this.value.hashCode();
-	        return hash;
-	    }
+	public int hashCode() {
+		int hash = 5;
+		hash = hash + (this.name != null ? this.name.hashCode() : 0);
+		hash = hash + this.value.hashCode();
+		return hash;
+	}
 
 }

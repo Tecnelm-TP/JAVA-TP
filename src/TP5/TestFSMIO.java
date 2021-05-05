@@ -25,7 +25,6 @@ public class TestFSMIO {
 		}
 		FSMIO<Character, Integer> fsm = new FSMIO<>(states, states.get(0));
 
-
 		try {
 			fsm.addState(states.get(0));
 			fsm.addState(states.get(1));
@@ -42,9 +41,8 @@ public class TestFSMIO {
 			e.printStackTrace();
 		}
 		fsm.saveObject("./res/FSM.fsm");
-		
-		FSMIO<Character, Integer> fsm2 = new FSMIO<Character, Integer>("./res/FSM.fsm").getFSMIO();
 
+		FSMIO<Character, Integer> fsm2 = new FSMIO<Character, Integer>("./res/FSM.fsm").getFSMIO();
 
 		System.out.println("Debut de la séquence");
 		for (char c : sequence.toCharArray()) {
@@ -66,9 +64,8 @@ public class TestFSMIO {
 				e.printStackTrace();
 			}
 
-
 		}
-		
+
 	}
 
 }

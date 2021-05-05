@@ -98,9 +98,9 @@ public class FSMIO<T1, T2> implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("States: "+states.toString()+"\t"+"Entree: "+this.getEnter().toString()+"\n");
+		sb.append("States: " + states.toString() + "\t" + "Entree: " + this.getEnter().toString() + "\n");
 		sb.append(tf.toString());
-		return  sb.toString();
+		return sb.toString();
 	}
 
 	/**
